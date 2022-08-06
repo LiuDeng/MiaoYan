@@ -11,7 +11,6 @@ const initVditor = (language) => {
     lang: language,
     mode: "ir",
     height: window.innerHeight + 100,
-
     preview: {
       markdown: {
         toc: true,
@@ -22,17 +21,6 @@ const initVditor = (language) => {
       math: {
         engine: "KaTeX",
       },
-    },
-    hint: {
-      emojiPath: "https://unpkg.com/vditor@1.8.3/dist/images/emoji",
-      emojiTail:
-        '<a href="https://ld246.com/settings/function" target="_blank">设置常用表情</a>',
-      emoji: {
-        sd: "💔",
-        j: "https://unpkg.com/vditor@1.3.1/dist/images/emoji/j.png",
-      },
-      parse: false,
-      extend: [],
     },
     tab: "\t",
   })

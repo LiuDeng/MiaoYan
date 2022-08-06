@@ -115,9 +115,6 @@ export const processKeydown = (vditor: IVditor, event: KeyboardEvent) => {
             if (start === 1) { // 删除零宽空格
                 range.setStart(startContainer, 0);
             }
-            if (start === 2) { // 删除时清空自动补全语言
-                vditor.hint.recentLanguage = "";
-            }
         }
         if (insertBeforeBlock(vditor, event, range, preBeforeElement, preBeforeElement.parentElement)) {
             // 上无元素，按上或左将添加新块

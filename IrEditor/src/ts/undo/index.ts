@@ -147,7 +147,6 @@ class Undo {
 
         execAfterRender(vditor, {
             enableAddUndoStack: false,
-            enableHint: false,
             enableInput: true,
         });
 

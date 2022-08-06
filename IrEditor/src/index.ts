@@ -1,6 +1,5 @@
 import "./assets/less/index.less";
 import VditorMethod from "./method";
-import { Hint } from "./ts/hint/index";
 import { IR } from "./ts/ir/index";
 import { input as irInput } from "./ts/ir/input";
 import { processAfterRender } from "./ts/ir/process";
@@ -195,7 +194,6 @@ class Vditor extends VditorMethod {
       });
     processAfterRender(this.vditor, {
       enableAddUndoStack: true,
-      enableHint: false,
       enableInput: false,
     });
 
@@ -231,7 +229,6 @@ class Vditor extends VditorMethod {
     this.vditor = {
       currentMode: mergedOptions.mode,
       element: id,
-      hint: new Hint(mergedOptions.hint.extend),
       lute: undefined,
       options: mergedOptions,
       originalInnerHTML: id.innerHTML,
@@ -248,8 +245,6 @@ class Vditor extends VditorMethod {
         autoSpace: this.vditor.options.preview.markdown.autoSpace,
         codeBlockPreview: this.vditor.options.preview.markdown
           .codeBlockPreview,
-        emojiSite: this.vditor.options.hint.emojiPath,
-        emojis: this.vditor.options.hint.emoji,
         fixTermTypo: this.vditor.options.preview.markdown.fixTermTypo,
         footnotes: this.vditor.options.preview.markdown.footnotes,
         headingAnchor: false,

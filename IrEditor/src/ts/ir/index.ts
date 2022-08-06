@@ -16,7 +16,7 @@ import {
 } from "../util/selection";
 import {expandMarker} from "./expandMarker";
 import {input} from "./input";
-import {processAfterRender, processHint} from "./process";
+import {processAfterRender} from "./process";
 
 class IR {
     public range: Range;
@@ -89,7 +89,6 @@ class IR {
                 this.preventInput = false;
                 processAfterRender(vditor, {
                   enableAddUndoStack: true,
-                  enableHint: true,
                   enableInput: true,
                 });
                 return;
@@ -204,12 +203,8 @@ class IR {
                     }
                 });
             } else if (event.key.indexOf("Arrow") > -1) {
-                if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-                    processHint(vditor);
-                }
                 expandMarker(range, vditor);
             } else if (event.keyCode === 229 && event.code === "" && event.key === "Unidentified") {
-                // https://github.com/Vanessa219/vditor/issues/508 IR 删除到节点需展开
                 expandMarker(range, vditor);
             }
 

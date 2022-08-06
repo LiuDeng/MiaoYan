@@ -98,8 +98,6 @@ interface ILuteRender {
 }
 
 interface ILuteOptions extends IMarkdownConfig {
-    emojis: IObject;
-    emojiSite: string;
     headingAnchor: boolean;
     inlineMathDigit: boolean;
     lazyLoadImage?: string;
@@ -167,8 +165,6 @@ declare class Lute {
     public SetAutoSpace(enable: boolean): void;
 
     public SetFixTermTypo(enable: boolean): void;
-
-    public SetEmojiSite(emojiSite: string): void;
 
     public SetVditorCodeBlockPreview(enable: boolean): void;
 
@@ -528,31 +524,6 @@ interface IPreviewOptions {
     after?(): void;
 }
 
-interface IHintData {
-    html: string;
-    value: string;
-}
-
-interface IHintExtend {
-    key: string;
-
-    hint?(value: string): IHintData[] | Promise<IHintData[]>;
-}
-
-/** @link https://ld246.com/article/1549638745630#options-hint */
-interface IHint {
-    /** 提示内容是否进行 md 解析 */
-    parse?: boolean;
-    /** 常用表情提示 HTML */
-    emojiTail?: string;
-    /** 提示 debounce 毫秒间隔。默认值: 200 */
-    delay?: number;
-    /** 默认表情，可从 [lute/emoji_map](https://github.com/88250/lute/blob/master/parse/emoji_map.go#L32) 中选取，也可自定义 */
-    emoji?: IObject;
-    /** 表情图片地址。默认值: 'https://cdn.jsdelivr.net/npm/vditor@${VDITOR_VERSION}/dist/images/emoji' */
-    emojiPath?: string;
-    extend?: IHintExtend[];
-}
 
 interface IResize {
     position?: string;
@@ -614,21 +585,6 @@ interface IOptions {
     mode?: "wysiwyg" | "sv" | "ir";
     /** @link https://ld246.com/article/1549638745630#options-preview */
     preview?: IPreview;
-    /** @link https://ld246.com/article/1549638745630#options-hint */
-    hint?: IHint;
-    /** @link https://ld246.com/article/1549638745630#options-toolbarConfig */
-    toolbarConfig?: {
-        hide?: boolean,
-        pin?: boolean,
-    };
-    /** 评论 */
-    comment?: {
-        enable: boolean
-        add?(id: string, text: string, commentsData: ICommentsData[]): void
-        remove?(ids: string[]): void;
-        scroll?(top: number): void;
-        adjustTop?(commentsData: ICommentsData[]): void;
-    };
     /** 主题。默认值: 'classic' */
     theme?: "classic" | "dark";
     /** 图标。默认值: 'ant' */
@@ -641,12 +597,6 @@ interface IOptions {
     cdn?: string;
     /** tab 键操作字符串，支持 \t 及任意字符串 */
     tab?: string;
-    /** @link https://ld246.com/article/1549638745630#options-outline */
-    outline?: {
-        enable: boolean,
-        position: "left" | "right",
-    };
-
     /** 编辑器异步渲染完成后的回调方法 */
     after?(): void;
 
@@ -685,16 +635,6 @@ interface IVditor {
     preview?: {
         element: HTMLElement
         render(vditor: IVditor, value?: string): void,
-    };
-
-    hint: {
-        timeId: number
-        element: HTMLDivElement
-        recentLanguage: string
-        fillEmoji(element: HTMLElement, vditor: IVditor): void
-        render(vditor: IVditor): void,
-        genHTML(data: IHintData[], key: string, vditor: IVditor): void
-        select(event: KeyboardEvent, vditor: IVditor): boolean,
     };
 
     undo?: {

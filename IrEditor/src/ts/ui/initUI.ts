@@ -40,11 +40,6 @@ export const initUI = (vditor: IVditor) => {
 
   contentElement.appendChild(vditor.ir.element.parentElement);
 
-
-
-  contentElement.appendChild(vditor.hint.element);
-
-
   vditor.element.appendChild(contentElement);
 
   document.execCommand("DefaultParagraphSeparator", false, "p");

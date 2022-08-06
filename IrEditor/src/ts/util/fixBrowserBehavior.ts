@@ -625,7 +625,6 @@ export const execAfterRender = (
   vditor: IVditor,
   options = {
     enableAddUndoStack: true,
-    enableHint: false,
     enableInput: true,
   }
 ) => {

@@ -38,8 +38,6 @@ export const md2html = (mdText: string, options?: IPreviewOptions) => {
     const lute = setLute({
       autoSpace: mergedOptions.markdown.autoSpace,
       codeBlockPreview: mergedOptions.markdown.codeBlockPreview,
-      emojiSite: mergedOptions.emojiPath,
-      emojis: mergedOptions.customEmoji,
       fixTermTypo: mergedOptions.markdown.fixTermTypo,
       footnotes: mergedOptions.markdown.footnotes,
       headingAnchor: mergedOptions.anchor !== 0,
@@ -74,29 +72,6 @@ export const previewRender = async (previewElement: HTMLDivElement, markdown: st
   }
   previewElement.innerHTML = html;
   previewElement.classList.add("vditor-reset");
-
-  if (!mergedOptions.i18n) {
-    if (!["en_US", "ja_JP", "ko_KR", "ru_RU", "zh_CN", "zh_TW"].includes(mergedOptions.lang)) {
-      throw new Error(
-        "options.lang error, see https://ld246.com/article/1549638745630#options",
-      );
-    } else {
-      const i18nScriptPrefix = "vditorI18nScript";
-      const i18nScriptID = i18nScriptPrefix + mergedOptions.lang;
-      document.querySelectorAll(`head script[id^="${i18nScriptPrefix}"]`).forEach((el) => {
-        if (el.id !== i18nScriptID) {
-          document.head.removeChild(el);
-        }
-      });
-      await addScript(`${mergedOptions.cdn}/dist/js/i18n/${mergedOptions.lang}.js`, i18nScriptID);
-    }
-  } else {
-    window.VditorI18n = mergedOptions.i18n;
-  }
-
-  if (mergedOptions.icon) {
-    await addScript(`${mergedOptions.cdn}/dist/js/icons/${mergedOptions.icon}.js`, "vditorIconScript");
-  }
 
   setContentTheme(mergedOptions.theme.current, mergedOptions.theme.path);
   if (mergedOptions.anchor === 1) {

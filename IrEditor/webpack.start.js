@@ -20,7 +20,6 @@ module.exports = {
   },
   entry: {
     'index.js': './demo/index.js',
-    'render.js': './demo/render.js',
   },
   resolve: {
     extensions: ['.js', '.ts', '.png', '.less'],

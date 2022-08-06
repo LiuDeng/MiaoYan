@@ -219,7 +219,6 @@ export const input = (vditor: IVditor, range: Range, ignoreSpace = false, event?
 
     processAfterRender(vditor, {
         enableAddUndoStack: true,
-        enableHint: true,
         enableInput: true,
     });
 };

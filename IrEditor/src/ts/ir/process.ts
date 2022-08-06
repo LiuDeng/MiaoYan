@@ -5,42 +5,10 @@ import {hasClosestBlock, hasClosestByAttribute} from "../util/hasClosest";
 import {getEditorRange, getSelectPosition} from "../util/selection";
 import {input} from "./input";
 
-export const processHint = (vditor: IVditor) => {
-    vditor.hint.render(vditor);
-    const startContainer = getEditorRange(vditor).startContainer;
-    // 代码块语言提示
-    const preBeforeElement = hasClosestByAttribute(startContainer, "data-type", "code-block-info");
-    if (preBeforeElement) {
-        if (preBeforeElement.textContent.replace(Constants.ZWSP, "") === "" && vditor.hint.recentLanguage) {
-            preBeforeElement.textContent = Constants.ZWSP + vditor.hint.recentLanguage;
-            const range = getEditorRange(vditor);
-            range.selectNodeContents(preBeforeElement);
-        } else {
-            const matchLangData: IHintData[] = [];
-            const key =
-                preBeforeElement.textContent.substring(0, getSelectPosition(preBeforeElement, vditor.ir.element).start)
-                    .replace(Constants.ZWSP, "");
-            Constants.CODE_LANGUAGES.forEach((keyName) => {
-                if (keyName.indexOf(key.toLowerCase()) > -1) {
-                    matchLangData.push({
-                        html: keyName,
-                        value: keyName,
-                    });
-                }
-            });
-            vditor.hint.genHTML(matchLangData, key, vditor);
-        }
-    }
-};
-
 export const processAfterRender = (vditor: IVditor, options = {
     enableAddUndoStack: true,
-    enableHint: false,
     enableInput: true,
 }) => {
-    if (options.enableHint) {
-        processHint(vditor);
-    }
 
     clearTimeout(vditor.ir.processTimeoutId);
     vditor.ir.processTimeoutId = window.setTimeout(() => {
